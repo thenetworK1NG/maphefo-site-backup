@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poster Gallery</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Custom styles for Back to Home button -->
+    <style>
+        .back-home-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #14b8a6, #38bdf8);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(20, 184, 166, 0.3);
+            transition: all 0.3s ease;
+            border: none;
+            margin-bottom: 2rem;
+        }
+        
+        .back-home-btn:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(20, 184, 166, 0.4);
+            background: linear-gradient(135deg, #0d9488, #0284c7);
+        }
+        
+        .back-home-btn:active {
+            transform: translateY(0) scale(1);
+            box-shadow: 0 2px 10px rgba(20, 184, 166, 0.3);
+        }
+        
+        .header-container {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header-container">
+            <a href="../index.html" class="back-home-btn">
+                <i class="fas fa-home"></i>
+                Back to Home
+            </a>
+            <h1>Poster Gallery</h1>
+        </header>
+        
+        <div class="gallery-grid" id="galleryGrid">
+            <!-- Posters will be dynamically loaded here -->
+        </div>
+    </div>
+
+    <!-- Fullscreen Modal -->
+    <div class="fullscreen-modal" id="fullscreenModal">
+        <div class="modal-backdrop" id="modalBackdrop"></div>
+        <div class="modal-content">
+            <button class="close-btn" id="closeBtn">&times;</button>
+            <img class="fullscreen-image" id="fullscreenImage" alt="Poster">
+            <div class="navigation">
+                <button class="nav-btn prev-btn" id="prevBtn">&#8249;</button>
+                <button class="nav-btn next-btn" id="nextBtn">&#8250;</button>
+            </div>
+            <div class="image-counter" id="imageCounter"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

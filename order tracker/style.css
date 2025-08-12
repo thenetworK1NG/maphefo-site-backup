@@ -1,0 +1,400 @@
+@media (max-width: 600px) {
+	.order-card {
+		padding: 16px 8px;
+		max-width: 98vw;
+		margin: 16px auto;
+	}
+	.progress-bar {
+		flex-direction: column;
+		padding: 10px 0;
+		margin: 18px 0 12px 0;
+	}
+	.progress-step {
+		margin-bottom: 10px;
+	}
+	.progress-bar .progress-line {
+		width: 4px;
+		height: 32px;
+		margin: 0 0 8px 0;
+		background: linear-gradient(180deg, #1976d2 60%, #2d7ef7 100%);
+	}
+	.tracking-box input[type="number"] {
+		width: 98vw;
+		max-width: 260px;
+		margin-bottom: 8px;
+	}
+	.tracking-box button {
+		width: 98vw;
+		max-width: 260px;
+		margin-bottom: 8px;
+	}
+}
+/* Card styling for tracked order results */
+body {
+	background: #f4f8ff;
+}
+.order-card {
+	background: linear-gradient(135deg, #e3f0ff 0%, #f4f8ff 100%);
+	border-radius: 18px;
+	box-shadow: 0 4px 16px rgba(44, 62, 80, 0.10);
+	padding: 28px 36px;
+	margin: 28px auto;
+	max-width: 600px;
+	border: 2.5px solid #2d7ef7;
+	transition: box-shadow 0.2s, border 0.2s;
+}
+.order-card strong {
+	font-size: 1.3rem;
+	color: #1565c0;
+}
+.order-card span {
+	font-size: 1.05rem;
+	color: #1565c0;
+}
+.order-card .progress-bar {
+	margin-bottom: 20px;
+}
+
+/* Input and button improvements */
+.tracking-box input[type="number"] {
+	width: 220px;
+	padding: 10px;
+	font-size: 1rem;
+	border-radius: 8px;
+	border: 1px solid #bbb;
+	margin-right: 8px;
+	background: #f8faff;
+	transition: border 0.2s;
+}
+.tracking-box input[type="number"]:focus {
+	border: 1.5px solid #2d7ef7;
+	outline: none;
+}
+.tracking-box button {
+	padding: 10px 18px;
+	font-size: 1rem;
+	border-radius: 8px;
+	background: linear-gradient(90deg, #2d7ef7 60%, #4f8cff 100%);
+	color: #fff;
+	border: none;
+	cursor: pointer;
+	box-shadow: 0 2px 8px rgba(44, 62, 80, 0.08);
+	transition: background 0.2s;
+}
+.tracking-box button:hover {
+	background: linear-gradient(90deg, #4f8cff 60%, #2d7ef7 100%);
+}
+#addOrderBtn {
+	margin-top: 12px;
+	background: #fff;
+	color: #2d7ef7;
+	border: 1.5px solid #2d7ef7;
+	box-shadow: 0 2px 8px rgba(44, 62, 80, 0.08);
+}
+#addOrderBtn:hover {
+	background: #2d7ef7;
+	color: #fff;
+}
+/* Progress Bar Stepper Styles */
+.progress-bar {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 32px 0 24px 0;
+	background: #e3f0ff;
+	border-radius: 12px;
+	padding: 18px 0;
+}
+.progress-step {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	position: relative;
+}
+.progress-circle {
+	width: 56px;
+	height: 56px;
+	border-radius: 50%;
+	background: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 2rem;
+	color: #1976d2;
+	border: 2.5px solid #1976d2;
+	box-shadow: 0 2px 8px rgba(44, 62, 80, 0.08);
+	transition: all 0.3s ease;
+}
+.progress-step.active .progress-circle {
+	width: 76px;
+	height: 76px;
+	background: #1976d2;
+	color: #fff;
+	border: 2.5px solid #1976d2;
+}
+.progress-label {
+	margin-top: 8px;
+	font-size: 1rem;
+	color: #1976d2;
+	font-weight: 600;
+	letter-spacing: 0.5px;
+	text-shadow: none;
+}
+.progress-step.active .progress-label {
+	color: #1976d2;
+	font-weight: bold;
+}
+.progress-bar .progress-line {
+	width: 48px;
+	height: 4px;
+	background: linear-gradient(90deg, #1976d2 60%, #2d7ef7 100%);
+	margin: 0 8px;
+	border-radius: 2px;
+}
+body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial; padding: 20px; max-width: 900px; margin: auto; }
+label { display:block; margin-bottom: 8px; font-weight: 600; }
+input[type="text"], input[type="number"] { width: 200px; padding: 6px; margin-right: 8px; }
+button { padding: 8px 12px; border-radius: 6px; border: 1px solid #ccc; cursor: pointer; }
+pre { background:#f4f4f6; padding:12px; border-radius:6px; overflow:auto; max-height:400px; }
+.meta { margin-bottom: 12px; color:#666; font-size:0.9rem; }
+/* Loader styles */
+#wifi-loader {
+  --background: #62abff;
+  --front-color: #4f29f0;
+  --back-color: #c3c8de;
+  --text-color: #414856;
+  width: 64px;
+  height: 64px;
+  border-radius: 50px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;
+}
+
+#wifi-loader svg {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#wifi-loader svg circle {
+  position: absolute;
+  fill: none;
+  stroke-width: 6px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transform: rotate(-100deg);
+  transform-origin: center;
+}
+
+#wifi-loader svg circle.back {
+  stroke: var(--back-color);
+}
+
+#wifi-loader svg circle.front {
+  stroke: var(--front-color);
+}
+
+#wifi-loader svg.circle-outer {
+  height: 86px;
+  width: 86px;
+}
+
+#wifi-loader svg.circle-outer circle {
+  stroke-dasharray: 62.75 188.25;
+}
+
+#wifi-loader svg.circle-outer circle.back {
+  animation: circle-outer135 1.8s ease infinite 0.3s;
+}
+
+#wifi-loader svg.circle-outer circle.front {
+  animation: circle-outer135 1.8s ease infinite 0.15s;
+}
+
+#wifi-loader svg.circle-middle {
+  height: 60px;
+  width: 60px;
+}
+
+#wifi-loader svg.circle-middle circle {
+  stroke-dasharray: 42.5 127.5;
+}
+
+#wifi-loader svg.circle-middle circle.back {
+  animation: circle-middle6123 1.8s ease infinite 0.25s;
+}
+
+#wifi-loader svg.circle-middle circle.front {
+  animation: circle-middle6123 1.8s ease infinite 0.1s;
+}
+
+#wifi-loader svg.circle-inner {
+  height: 34px;
+  width: 34px;
+}
+
+#wifi-loader svg.circle-inner circle {
+  stroke-dasharray: 22 66;
+}
+
+#wifi-loader svg.circle-inner circle.back {
+  animation: circle-inner162 1.8s ease infinite 0.2s;
+}
+
+#wifi-loader svg.circle-inner circle.front {
+  animation: circle-inner162 1.8s ease infinite 0.05s;
+}
+
+#wifi-loader .text {
+  position: absolute;
+  bottom: -40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: lowercase;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+}
+
+#wifi-loader .text::before, #wifi-loader .text::after {
+  content: attr(data-text);
+}
+
+#wifi-loader .text::before {
+  color: var(--text-color);
+}
+
+#wifi-loader .text::after {
+  color: var(--front-color);
+  animation: text-animation76 3.6s ease infinite;
+  position: absolute;
+  left: 0;
+}
+
+@keyframes circle-outer135 {
+  0% {
+    stroke-dashoffset: 25;
+  }
+
+  25% {
+    stroke-dashoffset: 0;
+  }
+
+  65% {
+    stroke-dashoffset: 301;
+  }
+
+  80% {
+    stroke-dashoffset: 276;
+  }
+
+  100% {
+    stroke-dashoffset: 276;
+  }
+}
+
+@keyframes circle-middle6123 {
+  0% {
+    stroke-dashoffset: 17;
+  }
+
+  25% {
+    stroke-dashoffset: 0;
+  }
+
+  65% {
+    stroke-dashoffset: 204;
+  }
+
+  80% {
+    stroke-dashoffset: 187;
+  }
+
+  100% {
+    stroke-dashoffset: 187;
+  }
+}
+
+@keyframes circle-inner162 {
+  0% {
+    stroke-dashoffset: 9;
+  }
+
+  25% {
+    stroke-dashoffset: 0;
+  }
+
+  65% {
+    stroke-dashoffset: 106;
+  }
+
+  80% {
+    stroke-dashoffset: 97;
+  }
+
+  100% {
+    stroke-dashoffset: 97;
+  }
+}
+
+@keyframes text-animation76 {
+  0% {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  50% {
+    clip-path: inset(0);
+  }
+
+  100% {
+    clip-path: inset(0 0 0 100%);
+  }
+}
+
+/* Animated Track Button Styles */
+.btn-track {
+  padding: 1.1em 2em;
+  background: none;
+  border: 2px solid #fff;
+  font-size: 15px;
+  color: #131313;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+  border-radius: 12px;
+  background-color: #ecd448;
+  font-weight: bolder;
+  box-shadow: 0 2px 0 2px #000;
+}
+
+.btn-track:before {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 120%;
+  background-color: #ff6700;
+  top: 50%;
+  transform: skewX(30deg) translate(-150%, -50%);
+  transition: all 0.5s;
+}
+
+.btn-track:hover {
+  background-color: #4cc9f0;
+  color: #fff;
+  box-shadow: 0 2px 0 2px #0d3b66;
+}
+
+.btn-track:hover::before {
+  transform: skewX(30deg) translate(150%, -50%);
+  transition-delay: 0.1s;
+}
+
+.btn-track:active {
+  transform: scale(0.9);
+}

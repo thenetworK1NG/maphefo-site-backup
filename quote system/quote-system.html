@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quote Request System</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#6366f1',
+            secondary: '#2563eb',
+          },
+        },
+      },
+    }
+  </script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js"></script>
+  <style>
+    .particle, .bord {
+      position: absolute;
+      z-index: 0;
+      opacity: 0.45;
+      pointer-events: none;
+      animation: float 12s ease-in-out infinite;
+    }
+    /* Multiple random positions for richer background */
+    .particle1, .bord1 { left: 5vw; top: 10vh; width: 60px; animation-delay: 0s; }
+    .particle2, .bord2 { right: 8vw; top: 20vh; width: 80px; animation-delay: 2s; }
+    .particle3, .bord3 { left: 15vw; bottom: 12vh; width: 70px; animation-delay: 4s; }
+    .particle4, .bord4 { right: 12vw; bottom: 8vh; width: 50px; animation-delay: 6s; }
+    .particle5, .bord5 { left: 40vw; top: 5vh; width: 45px; animation-delay: 1s; }
+    .particle6, .bord6 { right: 30vw; bottom: 18vh; width: 55px; animation-delay: 3s; }
+    .particle7, .bord7 { left: 60vw; bottom: 20vh; width: 65px; animation-delay: 5s; }
+    .particle8, .bord8 { right: 60vw; top: 30vh; width: 40px; animation-delay: 7s; }
+    @keyframes float {
+      0% { transform: translateY(0) scale(1) rotate(0deg); }
+      25% { transform: translateY(-20px) scale(1.1) rotate(8deg); }
+      50% { transform: translateY(0) scale(1) rotate(0deg); }
+      75% { transform: translateY(20px) scale(0.95) rotate(-8deg); }
+      100% { transform: translateY(0) scale(1) rotate(0deg); }
+    }
+    .burst-icon {
+      position: fixed;
+      pointer-events: none;
+      z-index: 50;
+      opacity: 0;
+      will-change: transform, opacity;
+      transition: opacity 0.4s, transform 1.2s cubic-bezier(.22,1.61,.36,1);
+    }
+    /* Modal overlay for options */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(30, 41, 59, 0.45);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-content {
+      background: #fff;
+      border-radius: 1rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      max-width: 95vw;
+      width: 400px;
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+      position: relative;
+    }
+    .modal-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #2d3a4a;
+      margin-bottom: 0.5rem;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .modal-checkbox-area {
+      overflow-y: auto;
+      max-height: 48vh;
+      margin-bottom: 1rem;
+    }
+    .modal-content .checkbox-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.25rem 1rem;
+    }
+    @media (min-width: 480px) {
+      .modal-content .checkbox-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    .modal-content label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1rem;
+      color: #374151;
+      cursor: pointer;
+      margin-bottom: 0;
+    }
+    .modal-content input[type="checkbox"] {
+      accent-color: #6366f1;
+    }
+    .modal-content .group-title {
+      font-weight: 600;
+      color: #6366f1;
+      margin: 0.5rem 0 0.25rem 0;
+      grid-column: 1 / -1;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+    }
+    .modal-content .divider {
+      border-bottom: 1px solid #e5e7eb;
+      margin: 0.5rem 0 0.5rem 0;
+      grid-column: 1 / -1;
+    }
+    .modal-content .modal-ok-btn {
+      margin-top: 0;
+      background: #6366f1;
+      color: #fff;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.75rem 0;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      width: 100%;
+      flex-shrink: 0;
+    }
+    .modal-content .modal-ok-btn:hover {
+      background: #2563eb;
+    }
+  </style>
+</head>
+<body class="relative min-h-screen flex items-center justify-center overflow-hidden">
+  <!-- Particle Background (Clothing) -->
+  <img src="particle1.png" alt="particle" class="particle particle1" />
+  <img src="particle2.png" alt="particle" class="particle particle2" />
+  <img src="particle3.png" alt="particle" class="particle particle3" />
+  <img src="particle4.png" alt="particle" class="particle particle4" />
+  <img src="particle1.png" alt="particle" class="particle particle5" />
+  <img src="particle2.png" alt="particle" class="particle particle6" />
+  <img src="particle3.png" alt="particle" class="particle particle7" />
+  <img src="particle4.png" alt="particle" class="particle particle8" />
+  <!-- Bord Background (Signage) -->
+  <img src="bord1.png" alt="bord" class="bord bord1 hidden" />
+  <img src="bord2.png" alt="bord" class="bord bord2 hidden" />
+  <img src="bord3.png" alt="bord" class="bord bord3 hidden" />
+  <img src="bord4.png" alt="bord" class="bord bord4 hidden" />
+  <img src="bord1.png" alt="bord" class="bord bord5 hidden" />
+  <img src="bord2.png" alt="bord" class="bord bord6 hidden" />
+  <img src="bord3.png" alt="bord" class="bord bord7 hidden" />
+  <img src="bord4.png" alt="bord" class="bord bord8 hidden" />
+
+  <div class="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 relative z-10">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Request a Quote</h2>
+    <form id="quoteForm" class="flex flex-col gap-4 relative">
+      <input type="text" id="name" placeholder="Your Name" required class="px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" />
+      <input type="email" id="email" placeholder="Your Email" required class="px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" />
+      <input type="tel" id="phone" placeholder="Your Phone Number" pattern="[0-9\-\+\s\(\)]{7,}" required class="px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" />
+      <label for="category" class="font-medium text-gray-700">Category</label>
+      <select id="category" required class="px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+        <option value="" disabled selected>Select a category</option>
+        <option value="Clothing">Clothing</option>
+        <option value="Signage">Signage</option>
+      </select>
+      <!-- Clothing Options Modal Trigger -->
+      <div id="clothingOptionsWrapper" class="relative" style="display:none;">
+        <button type="button" id="clothingDropdownBtn" class="w-full flex justify-between items-center px-4 py-3 border border-gray-300 rounded-md bg-white text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-primary">
+          Select Clothing Options
+          <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div id="clothingSelected" class="text-sm text-gray-600 mt-2"></div>
+      </div>
+      <!-- Signage Options Modal Trigger -->
+      <div id="signageOptionsWrapper" class="relative" style="display:none;">
+        <button type="button" id="signageDropdownBtn" class="w-full flex justify-between items-center px-4 py-3 border border-gray-300 rounded-md bg-white text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-primary">
+          Select Signage Options
+          <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div id="signageSelected" class="text-sm text-gray-600 mt-2"></div>
+      </div>
+      <textarea id="details" placeholder="Describe your request" required class="px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary resize-none min-h-[100px]"></textarea>
+      <button type="submit" class="mt-2 bg-primary hover:bg-secondary text-white font-semibold py-3 rounded-md transition-colors">Get Quote</button>
+    </form>
+    <div id="formMessage" class="mt-4 text-center font-medium"></div>
+  </div>
+
+  <!-- Clothing Modal -->
+  <div id="clothingModal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <div class="modal-title">Select Clothing Options</div>
+      <div class="modal-checkbox-area">
+        <div class="checkbox-grid">
+          <div class="group-title">SHIRTS</div>
+          <label><input type="checkbox" value="golfer">Golfer</label>
+          <label><input type="checkbox" value="long golfer">Long Golfer</label>
+          <label><input type="checkbox" value="fishing long">Fishing Long</label>
+          <label><input type="checkbox" value="fishing short">Fishing Short</label>
+          <label><input type="checkbox" value="t-shirt V">T-shirt V</label>
+          <label><input type="checkbox" value="t-shirt round">T-shirt Round</label>
+          <label><input type="checkbox" value="cycling">Cycling</label>
+          <label><input type="checkbox" value="rugby">Rugby</label>
+          <label><input type="checkbox" value="vest">Vest</label>
+          <div class="divider"></div>
+          <div class="group-title">WINTER</div>
+          <label><input type="checkbox" value="track suit top">Track Suit Top</label>
+          <label><input type="checkbox" value="track suit pants">Track Suit Pants</label>
+          <label><input type="checkbox" value="hoodies">Hoodies</label>
+          <label><input type="checkbox" value="windbreaker">Windbreaker</label>
+          <label><input type="checkbox" value="jacket">Jacket</label>
+          <label><input type="checkbox" value="long sleave round">Long Sleave Round</label>
+          <label><input type="checkbox" value="rugby">Rugby</label>
+          <label><input type="checkbox" value="vest">Vest</label>
+          <div class="divider"></div>
+          <div class="group-title">OTHER</div>
+          <label><input type="checkbox" value="skort">Skort</label>
+          <label><input type="checkbox" value="netball skirt">Netball Skirt</label>
+          <label><input type="checkbox" value="dress">Dress</label>
+          <label><input type="checkbox" value="pull over/jacket">Pull Over/Jacket</label>
+          <label><input type="checkbox" value="apron">Apron</label>
+          <label><input type="checkbox" value="hat">Hat</label>
+          <label><input type="checkbox" value="table cloth">Table Cloth</label>
+          <label><input type="checkbox" value="mask/buff">Mask/Buff</label>
+          <label><input type="checkbox" value="pillow">Pillow</label>
+          <div class="divider"></div>
+          <div class="group-title">PANTS</div>
+          <label><input type="checkbox" value="long">Long</label>
+          <label><input type="checkbox" value="rugby short">Rugby Short</label>
+          <label><input type="checkbox" value="soccer/fishing 3/4">Soccer/Fishing 3/4</label>
+          <label><input type="checkbox" value="cricket 3/4">Cricket 3/4</label>
+          <label><input type="checkbox" value="skorts">Skorts</label>
+          <label><input type="checkbox" value="ski-pants">Ski-pants</label>
+          <div class="divider"></div>
+          <div class="group-title">BAGS</div>
+          <label><input type="checkbox" value="rod bag">Rod Bag</label>
+          <label><input type="checkbox" value="reel bag">Reel Bag</label>
+          <label><input type="checkbox" value="cooler bag">Cooler Bag</label>
+          <label><input type="checkbox" value="string bag">String Bag</label>
+          <label><input type="checkbox" value="back pack">Back Pack</label>
+          <label><input type="checkbox" value="laundry bag">Laundry Bag</label>
+        </div>
+      </div>
+      <button type="button" id="clothingModalOk" class="modal-ok-btn mt-4">OK</button>
+    </div>
+  </div>
+  <!-- Signage Modal -->
+  <div id="signageModal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <div class="modal-title">Select Signage Options</div>
+      <div class="modal-checkbox-area">
+        <div class="checkbox-grid">
+          <label><input type="checkbox" value="normal stickers">Normal Stickers</label>
+          <label><input type="checkbox" value="clear vinyl stickers">Clear Vinyl Stickers</label>
+          <label><input type="checkbox" value="3M stickers">3M Stickers</label>
+          <label><input type="checkbox" value="one way vision">One Way Vision</label>
+          <label><input type="checkbox" value="posters">Posters</label>
+          <label><input type="checkbox" value="magnets">Magnets</label>
+          <label><input type="checkbox" value="flyers">Flyers</label>
+          <label><input type="checkbox" value="stamps">Stamps</label>
+          <label><input type="checkbox" value="mug printing">Mug Printing</label>
+          <label><input type="checkbox" value="single side banner">Single Side Banner</label>
+          <label><input type="checkbox" value="double sided banner">Double Sided Banner</label>
+          <label><input type="checkbox" value="canvas">Canvas</label>
+          <label><input type="checkbox" value="chromodeck">Chromodeck</label>
+          <label><input type="checkbox" value="ABS">ABS</label>
+          <label><input type="checkbox" value="corex">Corex</label>
+        </div>
+      </div>
+      <button type="button" id="signageModalOk" class="modal-ok-btn mt-4">OK</button>
+    </div>
+  </div>
+
+  <script type="module">
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyC5ycD5707iuVgCmWO-0vrUoJSTiNsAeGA",
+      authDomain: "quotes-d1b0c.firebaseapp.com",
+      projectId: "quotes-d1b0c",
+      storageBucket: "quotes-d1b0c.firebasestorage.app",
+      messagingSenderId: "657068653978",
+      appId: "1:657068653978:web:2361ac3630acb845b28e23",
+      measurementId: "G-GBG9KESVK2"
+    };
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+    import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // Switch background particles based on category
+    const categorySelect = document.getElementById('category');
+    const particleImgs = Array.from(document.querySelectorAll('.particle'));
+    const bordImgs = Array.from(document.querySelectorAll('.bord'));
+    function updateBackgroundParticles() {
+      const val = categorySelect.value;
+      if (val === 'Signage') {
+        particleImgs.forEach(img => img.classList.add('hidden'));
+        bordImgs.forEach(img => img.classList.remove('hidden'));
+      } else {
+        bordImgs.forEach(img => img.classList.add('hidden'));
+        particleImgs.forEach(img => img.classList.remove('hidden'));
+      }
+    }
+    categorySelect.addEventListener('change', updateBackgroundParticles);
+    // On page load, default to particles
+    updateBackgroundParticles();
+
+    // Modal logic for clothing and signage
+    const clothingOptionsWrapper = document.getElementById('clothingOptionsWrapper');
+    const clothingDropdownBtn = document.getElementById('clothingDropdownBtn');
+    const clothingModal = document.getElementById('clothingModal');
+    const clothingModalOk = document.getElementById('clothingModalOk');
+    const clothingSelected = document.getElementById('clothingSelected');
+    const clothingModalCheckboxes = Array.from(clothingModal.querySelectorAll('input[type=checkbox]'));
+    const signageOptionsWrapper = document.getElementById('signageOptionsWrapper');
+    const signageDropdownBtn = document.getElementById('signageDropdownBtn');
+    const signageModal = document.getElementById('signageModal');
+    const signageModalOk = document.getElementById('signageModalOk');
+    const signageSelected = document.getElementById('signageSelected');
+    const signageModalCheckboxes = Array.from(signageModal.querySelectorAll('input[type=checkbox]'));
+
+    function updateOptionsVisibility() {
+      if (categorySelect.value === 'Signage') {
+        signageOptionsWrapper.style.display = '';
+        clothingOptionsWrapper.style.display = 'none';
+      } else if (categorySelect.value === 'Clothing') {
+        clothingOptionsWrapper.style.display = '';
+        signageOptionsWrapper.style.display = 'none';
+      } else {
+        signageOptionsWrapper.style.display = 'none';
+        clothingOptionsWrapper.style.display = 'none';
+      }
+      signageSelected.textContent = '';
+      clothingSelected.textContent = '';
+      signageModalCheckboxes.forEach(cb => cb.checked = false);
+      clothingModalCheckboxes.forEach(cb => cb.checked = false);
+    }
+    categorySelect.addEventListener('change', updateOptionsVisibility);
+    updateOptionsVisibility();
+
+    // Modal open/close
+    clothingDropdownBtn.addEventListener('click', () => {
+      clothingModal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    });
+    signageDropdownBtn.addEventListener('click', () => {
+      signageModal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    });
+    clothingModalOk.addEventListener('click', () => {
+      clothingModal.classList.add('hidden');
+      document.body.style.overflow = '';
+      updateClothingSelected();
+    });
+    signageModalOk.addEventListener('click', () => {
+      signageModal.classList.add('hidden');
+      document.body.style.overflow = '';
+      updateSignageSelected();
+    });
+    // Close modal on click outside
+    clothingModal.addEventListener('mousedown', (e) => {
+      if (e.target === clothingModal) {
+        clothingModal.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+    });
+    signageModal.addEventListener('mousedown', (e) => {
+      if (e.target === signageModal) {
+        signageModal.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+    });
+    // Show selected options
+    function updateSignageSelected() {
+      const checked = signageModalCheckboxes.filter(cb => cb.checked).map(cb => cb.parentElement.textContent.trim());
+      signageSelected.textContent = checked.length ? 'Selected: ' + checked.join(', ') : '';
+    }
+    function updateClothingSelected() {
+      const checked = clothingModalCheckboxes.filter(cb => cb.checked).map(cb => cb.parentElement.textContent.trim());
+      clothingSelected.textContent = checked.length ? 'Selected: ' + checked.join(', ') : '';
+    }
+    signageModalCheckboxes.forEach(cb => {
+      cb.addEventListener('change', updateSignageSelected);
+    });
+    clothingModalCheckboxes.forEach(cb => {
+      cb.addEventListener('change', updateClothingSelected);
+    });
+
+    // Burst effect on submit (slower, more visual)
+    function burstIcons(x, y, type) {
+      const icons = type === 'Signage'
+        ? ['bord1.png', 'bord2.png', 'bord3.png', 'bord4.png']
+        : ['particle1.png', 'particle2.png', 'particle3.png', 'particle4.png'];
+      const count = 14;
+      for (let i = 0; i < count; i++) {
+        const angle = (2 * Math.PI * i) / count + (Math.random() - 0.5) * 0.3;
+        const dist = 110 + Math.random() * 60;
+        const icon = icons[i % icons.length];
+        const img = document.createElement('img');
+        img.src = icon;
+        img.className = 'burst-icon';
+        img.style.left = x + 'px';
+        img.style.top = y + 'px';
+        img.style.width = (36 + Math.random() * 22) + 'px';
+        img.style.transform = `translate(-50%, -50%) scale(0.5)`;
+        img.style.opacity = '0';
+        document.body.appendChild(img);
+        setTimeout(() => {
+          img.style.transition = 'opacity 0.25s, transform 1.3s cubic-bezier(.22,1.61,.36,1)';
+          img.style.transform = `translate(${Math.cos(angle) * dist}px, ${Math.sin(angle) * dist}px) scale(1.1)`;
+          img.style.opacity = '1';
+        }, 10);
+        setTimeout(() => {
+          img.style.opacity = '0';
+        }, 1100);
+        setTimeout(() => {
+          img.remove();
+        }, 1600);
+      }
+    }
+
+    // Quote form submission
+    const quoteForm = document.getElementById('quoteForm');
+    const formMessage = document.getElementById('formMessage');
+    let lastClick = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    // Track last click/tap on the form
+    quoteForm.addEventListener('pointerdown', function(e) {
+      lastClick = {
+        x: e.clientX,
+        y: e.clientY
+      };
+    });
+    quoteForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const category = document.getElementById('category').value;
+      const details = document.getElementById('details').value.trim();
+      let signageOptions = [];
+      let clothingOptions = [];
+      if (category === 'Signage') {
+        signageOptions = signageModalCheckboxes.filter(cb => cb.checked).map(cb => cb.value);
+      }
+      if (category === 'Clothing') {
+        clothingOptions = clothingModalCheckboxes.filter(cb => cb.checked).map(cb => cb.value);
+      }
+      if (!name || !email || !phone || !category || !details ||
+        (category === 'Signage' && signageOptions.length === 0) ||
+        (category === 'Clothing' && clothingOptions.length === 0)) {
+        formMessage.textContent = 'Please fill in all fields.' +
+          (category === 'Signage' && signageOptions.length === 0 ? ' (Select at least one signage option)' : '') +
+          (category === 'Clothing' && clothingOptions.length === 0 ? ' (Select at least one clothing option)' : '');
+        formMessage.className = 'mt-4 text-center font-medium text-red-600';
+        return;
+      }
+      // Burst effect
+      burstIcons(lastClick.x, lastClick.y, category);
+      push(ref(db, 'quotes/'), {
+        name,
+        email,
+        phone,
+        category,
+        signageOptions,
+        clothingOptions,
+        details,
+        timestamp: Date.now()
+      }).then(() => {
+        formMessage.textContent = 'Quote request submitted!';
+        formMessage.className = 'mt-4 text-center font-medium text-green-600';
+        quoteForm.reset();
+        document.getElementById('category').selectedIndex = 0;
+        updateBackgroundParticles();
+        updateOptionsVisibility();
+        updateSignageSelected();
+        updateClothingSelected();
+      }).catch((error) => {
+        formMessage.textContent = 'Error: ' + error.message;
+        formMessage.className = 'mt-4 text-center font-medium text-red-600';
+      });
+    });
+  </script>
+</body>
+</html> 
