@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map Sport Catalogue</title>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    <!-- Smoke background CSS (scoped to its elements) -->
+    <link rel="stylesheet" href="bg effect/styles.css">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        // Debug logging for image loading
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('=== IMAGE DEBUGGING START ===');
+            console.log('Current URL:', window.location.href);
+            console.log('Current directory:', window.location.pathname);
+            
+            // Find all images and add event listeners
+            const images = document.querySelectorAll('img');
+            images.forEach((img, index) => {
+                console.log(`Image ${index + 1}:`, img.src);
+                console.log(`Image ${index + 1} alt:`, img.alt);
+                
+                img.addEventListener('load', function() {
+                    console.log(`✅ SUCCESS: Image ${index + 1} loaded successfully:`, this.src);
+                });
+                
+                img.addEventListener('error', function() {
+                    console.error(`❌ ERROR: Image ${index + 1} failed to load:`, this.src);
+                    console.error(`Full path attempted:`, this.src);
+                    console.error(`Alt text:`, this.alt);
+                });
+            });
+            
+            // Test if the fishing images exist by trying to fetch them
+            const fishingImages = [
+                'clothing/Fishing/fishing1.png',
+                'clothing/Fishing/fishing2.png',
+                'clothing/Fishing/fishing3.png'
+            ];
+            
+            fishingImages.forEach((imagePath, index) => {
+                fetch(imagePath)
+                    .then(response => {
+                        if (response.ok) {
+                            console.log(`✅ FETCH SUCCESS: ${imagePath} exists and is accessible`);
+                        } else {
+                            console.error(`❌ FETCH ERROR: ${imagePath} returned status ${response.status}`);
+                        }
+                    })
+                    .catch(error => {
+                        console.error(`❌ FETCH FAILED: ${imagePath}`, error);
+                    });
+            });
+            
+            console.log('=== IMAGE DEBUGGING END ===');
+        });
+    </script>
+</head>
+<body>
+    <!-- Back to Home Button -->
+    <a href="../index.html" class="back-to-home-btn" aria-label="Back to Home">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="back-arrow">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        <span class="back-text">Back to Home</span>
+    </a>
+    
+    <!-- Smoke background canvas -->
+    <canvas id="smoke-canvas"></canvas>
+    <div class="gallery-container">
+        <h1 class="gallery-title" aria-label="Map Sport Catalogue">
+            <img class="site-logo" src="map sport logo.png" alt="Map Sport Catalogue" />
+            <span class="sr-only">Map Sport Catalogue</span>
+        </h1>
+        
+        <!-- Card 1: Adidas T-Shirt -->
+        <div class="make-3D-space" data-card="1">
+            <div class="product-card" data-card="1">
+                <div class="product-front">
+                    <div class="shadow"></div>
+                    <img src="clothing/Fishing/fishing1.png" alt="Fishing Shirt" />
+                    <div class="image_overlay theme-green"></div>
+                    <div class="view_details">VIEW</div>
+                    <div class="stats">        	
+                        <div class="stats-container">
+                            <span class="product_price">R39</span>
+                            <span class="product_name">Fishing Shirts</span>    
+                            <p>Mens/Women fishing shirt</p>                                            
+                            
+                            <div class="product-options">
+                            <strong>SIZES</strong>
+                            <span>XS, S, M, L, XL, XXL</span>
+                            <strong>COLORS</strong>
+                            <span style="font-size: 48px;">∞</span>
+                        </div>                       
+                        </div>                         
+                    </div>
+                </div>
+                <div class="product-back">
+                    <div class="shadow"></div>
+                    <div class="carousel">
+                        <ul>
+                            <li><img src="clothing/Fishing/fishing1.png" alt="Fishing Shirt 1" /></li>
+                            <li><img src="clothing/Fishing/fishing2.png" alt="Fishing Shirt 2" /></li>
+                            <li><img src="clothing/Fishing/fishing3.png" alt="Fishing Shirt 3" /></li>
+                        </ul>
+                        <div class="arrows-perspective">
+                            <div class="carouselPrev">
+                                <div class="y"></div>
+                                <div class="x"></div>
+                            </div>
+                            <div class="carouselNext">
+                                <div class="y"></div>
+                                <div class="x"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-back">
+                        <div class="cy"></div>
+                        <div class="cx"></div>
+                    </div>
+                </div>	  
+            </div>	
+        </div>
+
+        <!-- Card 2: Nike Sneakers -->
+        <div class="make-3D-space" data-card="2">
+            <div class="product-card" data-card="2">
+                <div class="product-front">
+                    <div class="shadow"></div>
+                    <img src="clothing/Jacket/jacket1.png" alt="Jacket" />
+                    <div class="image_overlay theme-blue"></div>
+                    <div class="view_details">VIEW</div>
+                    <div class="stats">        	
+                        <div class="stats-container">
+                            <span class="product_price">R120</span>
+                            <span class="product_name">Jackets</span>    
+                            <p>Mens/Women jackets</p>                                            
+                            
+                            <div class="product-options">
+                            <strong>SIZES</strong>
+                            <span>XS, S, M, L, XL, XXL</span>
+                            <strong>COLORS</strong>
+                            <span style="font-size: 48px;">∞</span>
+                        </div>                       
+                        </div>                         
+                    </div>
+                </div>
+                <div class="product-back">
+                    <div class="shadow"></div>
+                    <div class="carousel">
+                        <ul>
+                            <li><img src="clothing/Jacket/jacket1.png" alt="Jacket 1" /></li>
+                            <li><img src="clothing/Jacket/jacket2.png" alt="Jacket 2" /></li>
+                            <li><img src="clothing/Jacket/jacket3.png" alt="Jacket 3" /></li>
+                        </ul>
+                        <div class="arrows-perspective">
+                            <div class="carouselPrev">
+                                <div class="y"></div>
+                                <div class="x"></div>
+                            </div>
+                            <div class="carouselNext">
+                                <div class="y"></div>
+                                <div class="x"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-back">
+                        <div class="cy"></div>
+                        <div class="cx"></div>
+                    </div>
+                </div>	  
+            </div>	
+        </div>
+
+    <!-- Card 3: Hoodies -->
+        <div class="make-3D-space" data-card="3">
+            <div class="product-card" data-card="3">
+                <div class="product-front">
+                    <div class="shadow"></div>
+                    <img src="clothing/Hoodie/hoodie1.png" alt="Hoodie" />
+                    <div class="image_overlay theme-purple"></div>
+                    <div class="view_details">VIEW</div>
+                    <div class="stats">        	
+                        <div class="stats-container">
+                            <span class="product_price">R399</span>
+                            <span class="product_name">Hoodies</span>    
+                            <p>Mens/Women hoodies</p>                                            
+                            
+                            <div class="product-options">
+                            <strong>SIZES</strong>
+                            <span>XS, S, M, L, XL, XXL</span>
+                            <strong>COLORS</strong>
+                            <span style="font-size: 48px;">∞</span>
+                        </div>                       
+                        </div>                         
+                    </div>
+                </div>
+                <div class="product-back">
+                    <div class="shadow"></div>
+                    <div class="carousel">
+                        <ul>
+                            <li><img src="clothing/Hoodie/hoodie1.png" alt="Hoodie 1" /></li>
+                            <li><img src="clothing/Hoodie/hoodie2.png" alt="Hoodie 2" /></li>
+                            <li><img src="clothing/Hoodie/hoodie3.png" alt="Hoodie 3" /></li>
+                        </ul>
+                        <div class="arrows-perspective">
+                            <div class="carouselPrev">
+                                <div class="y"></div>
+                                <div class="x"></div>
+                            </div>
+                            <div class="carouselNext">
+                                <div class="y"></div>
+                                <div class="x"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-back">
+                        <div class="cy"></div>
+                        <div class="cx"></div>
+                    </div>
+                </div>	  
+            </div>	
+        </div>
+
+        <!-- Card 4: Headphones -->
+        <div class="make-3D-space" data-card="4">
+            <div class="product-card" data-card="4">
+                <div class="product-front">
+                    <div class="shadow"></div>
+                    <img src="clothing/T-shirt/tshirt1.png" alt="T-shirt" />
+                    <div class="image_overlay theme-orange"></div>
+                    <div class="view_details">VIEW</div>
+                    <div class="stats">        	
+                        <div class="stats-container">
+                            <span class="product_price">R249</span>
+                            <span class="product_name">T-shirts</span>    
+                            <p>Mens/Women T-shirts</p>                                            
+                            
+                            <div class="product-options">
+                            <strong>FEATURES</strong>
+                            <span>Wireless, Noise Canceling</span>
+                            <strong>COLORS</strong>
+                            <span style="font-size: 48px;">∞</span>
+                        </div>                       
+                        </div>                         
+                    </div>
+                </div>
+                <div class="product-back">
+                    <div class="shadow"></div>
+                    <div class="carousel">
+                        <ul>
+                            <li><img src="clothing/T-shirt/tshirt1.png" alt="T-shirt 1" /></li>
+                            <li><img src="clothing/T-shirt/tshirt2.png" alt="T-shirt 2" /></li>
+                            <li><img src="clothing/T-shirt/tshirt3.png" alt="T-shirt 3" /></li>
+                        </ul>
+                        <div class="arrows-perspective">
+                            <div class="carouselPrev">
+                                <div class="y"></div>
+                                <div class="x"></div>
+                            </div>
+                            <div class="carouselNext">
+                                <div class="y"></div>
+                                <div class="x"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-back">
+                        <div class="cy"></div>
+                        <div class="cx"></div>
+                    </div>
+                </div>	  
+            </div>	
+        </div>
+
+        <!-- Card 5: Coffee Mug -->
+        <div class="make-3D-space" data-card="5">
+            <div class="product-card" data-card="5">
+                <div class="product-front">
+                    <div class="shadow"></div>
+                    <img src="clothing/Rugby/rugby1.png" alt="Rugby Shirt" />
+                    <div class="image_overlay theme-brown"></div>
+                    <div class="view_details">VIEW</div>
+                    <div class="stats">        	
+                        <div class="stats-container">
+                            <span class="product_price">R24</span>
+                            <span class="product_name">Hockey/Rugby shirts</span>    
+                            <p>Men/women Hockey/Rugby shirts</p>                                            
+                            
+                            <div class="product-options">
+                            <strong>CAPACITY</strong>
+                            <span>12oz, 16oz</span>
+                            <strong>COLORS</strong>
+                            <span style="font-size: 48px;">∞</span>
+                        </div>                       
+                        </div>                         
+                    </div>
+                </div>
+                <div class="product-back">
+                    <div class="shadow"></div>
+                    <div class="carousel">
+                        <ul>
+                            <li><img src="clothing/Rugby/rugby1.png" alt="Rugby Shirt 1" /></li>
+                            <li><img src="clothing/Rugby/rugby2.png" alt="Rugby Shirt 2" /></li>
+                            <li><img src="clothing/Rugby/rugby3.png" alt="Rugby Shirt 3" /></li>
+                        </ul>
+                        <div class="arrows-perspective">
+                            <div class="carouselPrev">
+                                <div class="y"></div>
+                                <div class="x"></div>
+                            </div>
+                            <div class="carouselNext">
+                                <div class="y"></div>
+                                <div class="x"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-back">
+                        <div class="cy"></div>
+                        <div class="cx"></div>
+                    </div>
+                </div>	  
+            </div>	
+        </div>
+
+    <!-- Card 6: Golfer shirts -->
+        <div class="make-3D-space" data-card="6">
+            <div class="product-card" data-card="6">
+                <div class="product-front">
+                    <div class="shadow"></div>
+                    <img src="clothing/Golfer/golf1.png" alt="Golfer shirt" />
+                    <div class="image_overlay theme-gold"></div>
+                    <div class="view_details">VIEW</div>
+                    <div class="stats">        	
+                        <div class="stats-container">
+                            <span class="product_price">R189</span>
+                            <span class="product_name">Golfer shirts</span>    
+                            <p>Men/Women golfer shirts</p>                                            
+                            
+                            <div class="product-options">
+                            <strong>SIZES</strong>
+                            <span>XS, S, M, L, XL, XXL</span>
+                            <strong>COLORS</strong>
+                            <span style="font-size: 48px;">∞</span>
+                        </div>                       
+                        </div>                         
+                    </div>
+                </div>
+                <div class="product-back">
+                    <div class="shadow"></div>
+                    <div class="carousel">
+                        <ul>
+                            <li><img src="clothing/Golfer/golf1.png" alt="Golfer shirt 1" /></li>
+                            <li><img src="clothing/Golfer/golf2.png" alt="Golfer shirt 2" /></li>
+                            <li><img src="clothing/Golfer/golf3.png" alt="Golfer shirt 3" /></li>
+                        </ul>
+                        <div class="arrows-perspective">
+                            <div class="carouselPrev">
+                                <div class="y"></div>
+                                <div class="x"></div>
+                            </div>
+                            <div class="carouselNext">
+                                <div class="y"></div>
+                                <div class="x"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-back">
+                        <div class="cy"></div>
+                        <div class="cx"></div>
+                    </div>
+                </div>	  
+            </div>	
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="catalogue-footer">
+        <span>&copy; <span id="footer-year"></span> Made by the networKING</span>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!-- Smoke background effect -->
+    <script src="bg effect/script.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Set current year in footer
+        document.getElementById('footer-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
