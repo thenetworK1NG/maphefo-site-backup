@@ -240,6 +240,250 @@ div.product-card.flip180{
             transition:  100ms ease-out; 
 }
 
+/* When card is expanded/animated, allow overflow to be visible so dropdowns and extra UI are not clipped */
+.product-card.animate,
+.product-card.flip-10,
+.product-card.flip90,
+.product-card.flip190,
+.product-card.flip180{
+	overflow: visible; /* show dropdowns and floating UI */
+}
+
+/* Ensure the stats area can show dropdowns and other controls */
+.stats-container{
+	overflow: visible;
+	z-index: 30; /* sit above image but below controls like flip/back */
+}
+
+/* Make selects positionable and bring them above other elements when opened */
+.product-options select{
+	width: 100%;
+	box-sizing: border-box;
+	position: relative;
+	z-index: 40;
+	padding: 8px 10px;
+	font-size: 14px;
+	border-radius: 6px;
+	border: 1px solid #e6e6e9;
+	background: #fff;
+}
+
+.product-options select:focus{
+	outline: none;
+	box-shadow: 0 0 0 3px rgba(72, 218, 161, 0.12);
+}
+
+/* Specific styling for fishing dropdowns to match theme */
+#fishing-variant, #fishing-size{
+	appearance: none; /* remove native arrow for consistent styling */
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background: linear-gradient(180deg, #fff, #fbfbfb);
+	border: 1px solid rgba(72,218,161,0.25);
+	padding: 10px 36px 10px 12px;
+	border-radius: 8px;
+	color: #0f172a;
+	font-weight: 600;
+}
+
+/* Add a custom arrow using a background image (simple CSS triangle) */
+#fishing-variant, #fishing-size{
+	background-image: linear-gradient(#fff,#fbfbfb),
+		radial-gradient(circle at calc(100% - 18px) center, rgba(0,0,0,0.3) 8%, transparent 9%);
+	background-repeat: no-repeat, no-repeat;
+	background-position: 0 0, calc(100% - 18px) center;
+	background-size: 100% 100%, 12px 12px;
+}
+
+/* Ensure dropdowns are readable and sit above other elements when open */
+#fishing-variant, #fishing-size{
+	z-index: 60;
+}
+
+/* Mirror fishing styles for jackets selects */
+#jacket-variant, #jacket-size{
+	appearance: none; /* remove native arrow for consistent styling */
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background: linear-gradient(180deg, #fff, #fbfbfb);
+	border: 1px solid rgba(72,218,161,0.25);
+	padding: 10px 36px 10px 12px;
+	border-radius: 8px;
+	color: #0f172a;
+	font-weight: 600;
+	z-index: 60;
+}
+
+/* Add custom arrow visuals to jackets selects like fishing */
+#jacket-variant, #jacket-size{
+	background-image: linear-gradient(#fff,#fbfbfb),
+		radial-gradient(circle at calc(100% - 18px) center, rgba(0,0,0,0.3) 8%, transparent 9%);
+	background-repeat: no-repeat, no-repeat;
+	background-position: 0 0, calc(100% - 18px) center;
+	background-size: 100% 100%, 12px 12px;
+}
+
+#jacket-variant{
+	width: 62%;
+}
+
+#jacket-size{
+	width: 100%;
+	margin-top: 6px;
+}
+
+/* Mirror styles for hoodie selects */
+#hoodie-variant, #hoodie-size{
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background: linear-gradient(180deg, #fff, #fbfbfb);
+	border: 1px solid rgba(72,218,161,0.25);
+	padding: 10px 36px 10px 12px;
+	border-radius: 8px;
+	color: #0f172a;
+	font-weight: 600;
+	z-index: 60;
+	background-image: linear-gradient(#fff,#fbfbfb),
+		radial-gradient(circle at calc(100% - 18px) center, rgba(0,0,0,0.3) 8%, transparent 9%);
+	background-repeat: no-repeat, no-repeat;
+	background-position: 0 0, calc(100% - 18px) center;
+	background-size: 100% 100%, 12px 12px;
+}
+
+#hoodie-variant{
+	width: 62%;
+}
+
+#hoodie-size{
+	width: 100%;
+	margin-top: 6px;
+}
+
+/* T-shirt selects styling */
+#tshirt-variant, #tshirt-size{
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background: linear-gradient(180deg, #fff, #fbfbfb);
+	border: 1px solid rgba(72,218,161,0.25);
+	padding: 10px 36px 10px 12px;
+	border-radius: 8px;
+	color: #0f172a;
+	font-weight: 600;
+	z-index: 60;
+	background-image: linear-gradient(#fff,#fbfbfb),
+		radial-gradient(circle at calc(100% - 18px) center, rgba(0,0,0,0.3) 8%, transparent 9%);
+	background-repeat: no-repeat, no-repeat;
+	background-position: 0 0, calc(100% - 18px) center;
+	background-size: 100% 100%, 12px 12px;
+}
+
+#tshirt-variant{
+	width: 62%;
+}
+
+#tshirt-size{
+	width: 100%;
+	margin-top: 6px;
+}
+
+/* Rugby selects styling */
+#rugby-variant, #rugby-size{
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background: linear-gradient(180deg, #fff, #fbfbfb);
+	border: 1px solid rgba(72,218,161,0.25);
+	padding: 10px 36px 10px 12px;
+	border-radius: 8px;
+	color: #0f172a;
+	font-weight: 600;
+	z-index: 60;
+	background-image: linear-gradient(#fff,#fbfbfb),
+		radial-gradient(circle at calc(100% - 18px) center, rgba(0,0,0,0.3) 8%, transparent 9%);
+	background-repeat: no-repeat, no-repeat;
+	background-position: 0 0, calc(100% - 18px) center;
+	background-size: 100% 100%, 12px 12px;
+}
+
+#rugby-variant{
+	width: 62%;
+}
+
+#rugby-size{
+	width: 100%;
+	margin-top: 6px;
+}
+
+/* Golfer selects styling */
+#golfer-variant, #golfer-size{
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background: linear-gradient(180deg, #fff, #fbfbfb);
+	border: 1px solid rgba(72,218,161,0.25);
+	padding: 10px 36px 10px 12px;
+	border-radius: 8px;
+	color: #0f172a;
+	font-weight: 600;
+	z-index: 60;
+	background-image: linear-gradient(#fff,#fbfbfb),
+		radial-gradient(circle at calc(100% - 18px) center, rgba(0,0,0,0.3) 8%, transparent 9%);
+	background-repeat: no-repeat, no-repeat;
+	background-position: 0 0, calc(100% - 18px) center;
+	background-size: 100% 100%, 12px 12px;
+}
+
+#golfer-variant{
+	width: 62%;
+}
+
+#golfer-size{
+	width: 100%;
+	margin-top: 6px;
+}
+
+/* Tighten spacing inside stats-container for selects */
+.stats-container select{
+	margin-bottom: 10px;
+}
+
+/* Layout for variant + colours row */
+.variant-row{
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin: 8px 0 10px 0;
+}
+
+/* Make variant select narrower and sizes select full width below */
+#fishing-variant{
+	width: 62%;
+}
+
+#fishing-size{
+	width: 100%;
+	margin-top: 6px;
+}
+
+.colors-infty{
+	font-size: 40px;
+	color: #48cfad;
+	line-height: 1;
+	font-weight: 800;
+	display: inline-block;
+	width: 36px;
+	text-align: center;
+}
+
+/* Make the green price visually match other price styles */
+#fishing-price{
+	color: #48cfad;
+	font-weight: 700;
+	float: right;
+}
+
 /* Fallback: ensure card 1 front always shows the fishing image as background */
 .product-card[data-card="1"] .product-front {
 		background-image: url('clothing/Fishing/fishing1.png');

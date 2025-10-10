@@ -87,14 +87,29 @@
                         <div class="stats-container">
                             <span class="product_price">R39</span>
                             <span class="product_name">Fishing Shirts</span>    
-                            <p>Mens/Women fishing shirt</p>                                            
+                            <p id="fishing-description">Mens/Women fishing shirt</p>                                            
                             
                             <div class="product-options">
-                            <strong>SIZES</strong>
-                            <span>XS, S, M, L, XL, XXL</span>
-                            <strong>COLORS</strong>
-                            <span style="font-size: 48px;">∞</span>
-                        </div>                       
+                                <div class="variant-row">
+                                    <label for="fishing-variant" class="visually-hidden">Fishing shirt variant</label>
+                                    <select id="fishing-variant" aria-label="Fishing shirt variant">
+                                        <option value="MANDARIN LONG SLEEVE 1/4 ZIP">MANDARIN LONG SLEEVE 1/4 ZIP</option>
+                                        <option value="MANDARIN SHORT SLEEVE 1/4 ZIP">MANDARIN SHORT SLEEVE 1/4 ZIP</option>
+                                        <option value="GOLFER COLLAR LONG SLEEVE BUTTONS">GOLFER COLLAR LONG SLEEVE BUTTONS</option>
+                                        <option value="GOLFER COLLAR SHORT SLEEVE BUTTONS">GOLFER COLLAR SHORT SLEEVE BUTTONS</option>
+                                        <option value="HOODIE WITH THUMB CUFF & BUFF">HOODIE WITH THUMB CUFF & BUFF</option>
+                                        <option value="MANDARIN LONG SLEEVE HOODIE 1/4 ZIP">MANDARIN LONG SLEEVE HOODIE 1/4 ZIP</option>
+                                        <option value="MANDARIN SHORT SLEEVE HOODIE 1/4 ZIP">MANDARIN SHORT SLEEVE HOODIE 1/4 ZIP</option>
+                                    </select>
+
+                                    <span class="colors-infty" title="Many colours available" aria-hidden="true">∞</span>
+                                </div>
+
+                                <label for="fishing-size" class="visually-hidden">Size</label>
+                                <select id="fishing-size" aria-label="Fishing shirt size">
+                                    <!-- sizes will be populated by JS based on variant -->
+                                </select>
+                            </div>                       
                         </div>                         
                     </div>
                 </div>
@@ -140,11 +155,21 @@
                             <p>Mens/Women jackets</p>                                            
                             
                             <div class="product-options">
-                            <strong>SIZES</strong>
-                            <span>XS, S, M, L, XL, XXL</span>
-                            <strong>COLORS</strong>
-                            <span style="font-size: 48px;">∞</span>
-                        </div>                       
+                                <div class="variant-row">
+                                    <label for="jacket-variant" class="visually-hidden">Jacket variant</label>
+                                    <select id="jacket-variant" aria-label="Jacket variant">
+                                        <option value="JACKET LADIES & MEN SHEPARD SKIN">JACKET LADIES & MEN SHEPARD SKIN</option>
+                                        <option value="JACKET LADIES & MEN POLAR FLEECE">JACKET LADIES & MEN POLAR FLEECE</option>
+                                        <option value="JACKET JUNIOR POLAR FLEECE">JACKET JUNIOR POLAR FLEECE</option>
+                                    </select>
+                                    <span class="colors-infty" title="Many colours available" aria-hidden="true">∞</span>
+                                </div>
+
+                                <label for="jacket-size" class="visually-hidden">Jacket size</label>
+                                <select id="jacket-size" aria-label="Jacket size">
+                                    <!-- sizes will be populated by JS based on variant -->
+                                </select>
+                            </div>                       
                         </div>                         
                     </div>
                 </div>
@@ -190,11 +215,24 @@
                             <p>Mens/Women hoodies</p>                                            
                             
                             <div class="product-options">
-                            <strong>SIZES</strong>
-                            <span>XS, S, M, L, XL, XXL</span>
-                            <strong>COLORS</strong>
-                            <span style="font-size: 48px;">∞</span>
-                        </div>                       
+                                <div class="variant-row">
+                                    <label for="hoodie-variant" class="visually-hidden">Hoodie variant</label>
+                                    <select id="hoodie-variant" aria-label="Hoodie variant">
+                                        <option value="HOODIE NO POCKET - TRIACETATE">HOODIE NO POCKET - TRIACETATE</option>
+                                        <option value="HOODIE NO POCKET - SOFT SHELL">HOODIE NO POCKET - SOFT SHELL</option>
+                                        <option value="HOODIE NO POCKET - BRUSHED FLEECE">HOODIE NO POCKET - BRUSHED FLEECE</option>
+                                        <option value="HOODIE WITH POCKET - TRIACETATE">HOODIE WITH POCKET - TRIACETATE</option>
+                                        <option value="HOODIE WITH POCKET - SOFT SHELL">HOODIE WITH POCKET - SOFT SHELL</option>
+                                        <option value="HOODIE WITH POCKET - BRUSHED FLEECE">HOODIE WITH POCKET - BRUSHED FLEECE</option>
+                                    </select>
+                                    <span class="colors-infty" title="Many colours available" aria-hidden="true">∞</span>
+                                </div>
+
+                                <label for="hoodie-size" class="visually-hidden">Hoodie size</label>
+                                <select id="hoodie-size" aria-label="Hoodie size">
+                                    <!-- sizes will be populated by JS based on variant -->
+                                </select>
+                            </div>                       
                         </div>                         
                     </div>
                 </div>
@@ -240,11 +278,22 @@
                             <p>Mens/Women T-shirts</p>                                            
                             
                             <div class="product-options">
-                            <strong>FEATURES</strong>
-                            <span>Wireless, Noise Canceling</span>
-                            <strong>COLORS</strong>
-                            <span style="font-size: 48px;">∞</span>
-                        </div>                       
+                                <div class="variant-row">
+                                    <label for="tshirt-variant" class="visually-hidden">T-shirt variant</label>
+                                    <select id="tshirt-variant" aria-label="T-shirt variant">
+                                        <option value="STANDARD ROUND & VNECK">STANDARD ROUND & VNECK</option>
+                                        <option value="SLIMFIT ROUND & VNECK">SLIMFIT ROUND & VNECK</option>
+                                        <option value="STANDARD ROUND & VNECK LONG SLEEVE">STANDARD ROUND & VNECK LONG SLEEVE</option>
+                                        <option value="SLIMFIT ROUND & VNECK LONG SLEEVE">SLIMFIT ROUND & VNECK LONG SLEEVE</option>
+                                    </select>
+                                    <span class="colors-infty" title="Many colours available" aria-hidden="true">∞</span>
+                                </div>
+
+                                <label for="tshirt-size" class="visually-hidden">T-shirt size</label>
+                                <select id="tshirt-size" aria-label="T-shirt size">
+                                    <!-- sizes will be populated by JS based on variant -->
+                                </select>
+                            </div>                       
                         </div>                         
                     </div>
                 </div>
@@ -290,11 +339,21 @@
                             <p>Men/women Hockey/Rugby shirts</p>                                            
                             
                             <div class="product-options">
-                            <strong>CAPACITY</strong>
-                            <span>12oz, 16oz</span>
-                            <strong>COLORS</strong>
-                            <span style="font-size: 48px;">∞</span>
-                        </div>                       
+                                <div class="variant-row">
+                                    <label for="rugby-variant" class="visually-hidden">Rugby variant</label>
+                                    <select id="rugby-variant" aria-label="Rugby variant">
+                                        <option value="INSERT COLLAR STANDARD SLEEVE">INSERT COLLAR STANDARD SLEEVE</option>
+                                        <option value="V-, ROUND- or RAISED NECK RAGLAN SLEEVE">V-, ROUND- or RAISED NECK RAGLAN SLEEVE</option>
+                                        <option value="SLIMFIT STANDARD SLEEVE">SLIMFIT STANDARD SLEEVE</option>
+                                    </select>
+                                    <span class="colors-infty" title="Many colours available" aria-hidden="true">∞</span>
+                                </div>
+
+                                <label for="rugby-size" class="visually-hidden">Rugby size</label>
+                                <select id="rugby-size" aria-label="Rugby size">
+                                    <!-- sizes will be populated by JS based on variant -->
+                                </select>
+                            </div>                       
                         </div>                         
                     </div>
                 </div>
@@ -340,11 +399,24 @@
                             <p>Men/Women golfer shirts</p>                                            
                             
                             <div class="product-options">
-                            <strong>SIZES</strong>
-                            <span>XS, S, M, L, XL, XXL</span>
-                            <strong>COLORS</strong>
-                            <span style="font-size: 48px;">∞</span>
-                        </div>                       
+                                <div class="variant-row">
+                                    <label for="golfer-variant" class="visually-hidden">Golfer variant</label>
+                                    <select id="golfer-variant" aria-label="Golfer variant">
+                                        <option value="STANDARD OR CUP SLEEVE">STANDARD OR CUP SLEEVE</option>
+                                        <option value="STANDARD LONG SLEEVE">STANDARD LONG SLEEVE</option>
+                                        <option value="SLIMFIT">SLIMFIT</option>
+                                        <option value="SLIMFIT LONG SLEEVE">SLIMFIT LONG SLEEVE</option>
+                                        <option value="SLEEVELESS GOLFER SLIMFIT">SLEEVELESS GOLFER SLIMFIT</option>
+                                        <option value="CUP SLEEVE GOLFER SLIMFIT">CUP SLEEVE GOLFER SLIMFIT</option>
+                                    </select>
+                                    <span class="colors-infty" title="Many colours available" aria-hidden="true">∞</span>
+                                </div>
+
+                                <label for="golfer-size" class="visually-hidden">Golfer size</label>
+                                <select id="golfer-size" aria-label="Golfer size">
+                                    <!-- sizes will be populated by JS based on variant -->
+                                </select>
+                            </div>                       
                         </div>                         
                     </div>
                 </div>
